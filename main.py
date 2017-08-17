@@ -9,4 +9,7 @@ img = cv2.resize(img, (64+2, 128+2))
 
 grad = hog.ComputeGradient(img)
 
-print(grad)
+histogram = hog.WeightVote(grad)
+
+print(histogram)
+print(sum(histogram[0][0]))
