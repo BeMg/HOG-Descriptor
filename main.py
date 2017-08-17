@@ -11,5 +11,7 @@ grad = hog.ComputeGradient(img)
 
 histogram = hog.WeightVote(grad)
 
-print(histogram)
-print(sum(histogram[0][0]))
+fea_vec = hog.BlockCompute(histogram)
+
+print(fea_vec)
+print(len(fea_vec))

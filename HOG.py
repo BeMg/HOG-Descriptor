@@ -3,8 +3,8 @@ import cv2
 import math
 
 class HOG:
-    # 4 * 4 cell -> a block
-    block_size = 4
+    # 2 * 2 cell -> a block
+    block_size = 2
     # 8 * 8 pixel -> a cell
     cell_size = 8
     nbin = 9
@@ -44,7 +44,8 @@ class HOG:
                         x = self.cell_size * i + k;
                         y = self.cell_size * j + l;
                         angle = np.arctan2(grad[x][y][1],grad[x][y][0]) / np.pi * 180
-                        angle = np.abs(angle)
+                        # !!! Have question about how to implemnt unsign angle
+                        angle = np.abs(angle) 
                         
                         index = int(angle / dest)
                         offset = angle % dest
@@ -67,6 +68,18 @@ class HOG:
 
         return cell_histogram
         
+    def BlockCompute(self, histogram):
+        h, w, _ = histogram.shape
         
-    
+        feature_vector = []
+
+        for i in range(h-self.block_size+1):
+            for j in range(w-self.block_size+1):
+                for k in range(self.block_size):
+                    for l in range(self.block_size):
+                        x = i + k
+                        y = j + l
+                        feature_vector += list(histogram[x][y])
+
+        return feature_vector
         
