@@ -1,17 +1,25 @@
 import numpy as np
 import cv2
 from HOG import HOG
+import os
+import glob
+from sklearn import svm
 
 hog = HOG()
+curr_path = os.getcwd()
 
-img = cv2.imread('./data/1.jpg', 2)
-img = cv2.resize(img, (64+2, 128+2))
+pos_dir_path = curr_path+'/data/INRIAPerson/train_64x128_H96/pos'
 
-grad = hog.ComputeGradient(img)
+pos_img_path = glob.glob(pos_dir_path+'/*.png')
 
-histogram = hog.WeightVote(grad)
+img = cv2.imread(pos_img_path[46], 2)
 
-fea_vec = hog.BlockCompute(histogram)
+h, w = img.shape
+img2 = img[:int(h/2)][:]
 
-print(fea_vec)
-print(len(fea_vec))
+print(img2.shape)
+
+vec = hog.compute(img2)
+
+print(vec)
+print(len(vec))

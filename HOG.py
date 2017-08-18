@@ -83,3 +83,8 @@ class HOG:
 
         return feature_vector
         
+    def compute(self, img):
+        grad = self.ComputeGradient(img)
+        histogram = self.WeightVote(grad)
+        fea_vec = self.BlockCompute(histogram)
+        return fea_vec
