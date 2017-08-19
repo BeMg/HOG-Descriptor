@@ -103,3 +103,7 @@ ENV/
 # Dataset
 
 /data/*
+
+# Model 
+
+/svm_model/*
