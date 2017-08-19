@@ -21,7 +21,10 @@ class HOG:
         for i in range(h-2):
             for j in range(w-2):
                 # The first element 
-                grad[i][j] = (img[i][j]-img[i][j+2], img[i][j]-img[i+2][j])
+                dx = img[i][j]-img[i+2][j]
+                dy = img[i][j]-img[i][j+2]
+                mag = np.sqrt(dx*dx + dy*dy)
+                grad[i][j] = (dy/mag, dx/mag)
         return grad
         
     # For each pixel, we compute the grad to angle, 
