@@ -4,7 +4,7 @@ from sklearn.externals import joblib
 import pickle
 
 print("Load Train_data")
-with open('train_data', 'rb') as fp:
+with open('Train_data', 'rb') as fp:
     train_data, train_label = pickle.load(fp)
 
 print("Load SVM model")
@@ -23,5 +23,4 @@ for i in range(len(train_data)):
     if pred[0] == train_label[i]:
         cnt += 1
 
-print(cnt)
-    
+print(cnt/len(train_data))

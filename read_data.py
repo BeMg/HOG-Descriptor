@@ -11,8 +11,8 @@ import pickle
 hog = HOG()
 curr_path = os.getcwd()
 
-pos_dir_path = curr_path+'/data/INRIAPerson/test_64x128_H96/pos'
-neg_dir_path = curr_path+'/data/INRIAPerson/test_64x128_H96/neg'
+pos_dir_path = curr_path+'/data/INRIAPerson/train_64x128_H96/pos'
+neg_dir_path = curr_path+'/data/INRIAPerson/train_64x128_H96/neg'
 
 pos_img_path = glob.glob(pos_dir_path+'/*.png')
 neg_img_path = glob.glob(neg_dir_path+'/*.png')
@@ -26,20 +26,19 @@ train_label = []
 
 for i in range(len(pos_img_path)):
     img = cv2.imread(pos_img_path[i], 2)
-    img2 = img[:int(h/2)][:]
-    img3 = cv2.resize(img2, (96, 80))
-    vec = hog.compute(img3)
+    img2 = img[20:int(h/2), int(w/6):int(w*(5/6))]
+    vec = hog.compute(img2)
     train_data.append(vec)
     train_label.append(1)
     print("{}: {}".format(i, len(vec)))
     
 for i in range(len(neg_img_path)):
     img = cv2.imread(neg_img_path[i], 2)
-    img2 = cv2.resize(img, (96, 80))
+    img2 = cv2.resize(img, (60, 64))
     vec = hog.compute(img2)
     train_data.append(vec)
     train_label.append(0)
     print("{}: {}".format(i, len(vec)))
 
-with open('Test_data', 'wb') as fp:
+with open('Train_data', 'wb') as fp:
     pickle.dump((train_data, train_label), fp)

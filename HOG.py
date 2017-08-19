@@ -1,6 +1,9 @@
 import numpy as np
 import cv2
 import math
+from sklearn import svm
+from sklearn.externals import joblib
+
 
 class HOG:
     # 2 * 2 cell -> a block
@@ -8,6 +11,11 @@ class HOG:
     # 8 * 8 pixel -> a cell
     cell_size = 8
     nbin = 9
+    h = 60
+    w = 64
+    clf = joblib.load('./svm_model/upperbody.pkl')
+    padding = 10
+
 
     # ComputeGradient(img:2D-array)
     # Compute Greadient for
@@ -23,7 +31,8 @@ class HOG:
                 # The first element 
                 dx = img[i][j]-img[i+2][j]
                 dy = img[i][j]-img[i][j+2]
-                mag = np.sqrt(dx*dx + dy*dy)
+                mag = math.sqrt(dx*dx + dy*dy)
+                mag = 1 if mag == 0 else mag
                 grad[i][j] = (dy/mag, dx/mag)
         return grad
         
@@ -48,7 +57,7 @@ class HOG:
                         y = self.cell_size * j + l;
                         angle = np.arctan2(grad[x][y][1],grad[x][y][0]) / np.pi * 180
                         # !!! Have question about how to implemnt unsign angle
-                        angle = np.abs(angle) 
+                        angle = angle if angle > 0 else -angle
                         
                         index = int(angle / dest)
                         offset = angle % dest
@@ -67,6 +76,12 @@ class HOG:
                                 offset += 10
                                 histogram[index] += (dest-offset)/dest
                                 histogram[index-1] += offset/dest
+                L2_norm = 0
+                for val in histogram:
+                    L2_norm += val*val
+                L2_norm = np.sqrt(L2_norm)
+            
+                histogram = histogram/L2_norm
                 cell_histogram[i][j] = histogram
 
         return cell_histogram
@@ -86,8 +101,29 @@ class HOG:
 
         return feature_vector
         
+    # From img to compute a HOG descriptor
     def compute(self, img):
         grad = self.ComputeGradient(img)
         histogram = self.WeightVote(grad)
         fea_vec = self.BlockCompute(histogram)
         return fea_vec
+
+    def detect(self, img):
+        h, w = img.shape
+
+        h2 = int((h-self.h)/self.padding)
+        w2 = int((w-self.w)/self.padding)
+
+        result = []
+
+        for i in range(h2):
+            for j in range(w2):
+                x = i*self.padding
+                y = j*self.padding
+                crop_img = img[x:x+self.h, y:y+self.w]
+                crop_HOG = self.compute(crop_img)
+                pred = self.clf.predict([crop_HOG])      
+                if pred == 1:
+                    result.append((x,y,x+self.h, y+self.w))
+        
+        return result
