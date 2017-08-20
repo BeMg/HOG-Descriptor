@@ -12,9 +12,9 @@ class HOG:
     cell_size = 8
     nbin = 9
     h = 60
-    w = 64
+    w = 57
     clf = joblib.load('./svm_model/upperbody.pkl')
-    padding = 10
+    padding = 20
 
 
     # ComputeGradient(img:2D-array)
@@ -121,8 +121,9 @@ class HOG:
                 x = i*self.padding
                 y = j*self.padding
                 crop_img = img[x:x+self.h, y:y+self.w]
+
                 crop_HOG = self.compute(crop_img)
-                pred = self.clf.predict([crop_HOG])      
+                pred = self.clf.predict([crop_HOG])
                 if pred == 1:
                     result.append((x,y,x+self.h, y+self.w))
         
