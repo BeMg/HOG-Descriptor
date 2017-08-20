@@ -37,11 +37,14 @@ clf = svm.SVC()
 clf.fit(Train_data, Train_label)
 
 cnt = 0
+cnt_one = 0;
 
 for i in range(len(Test_data)):
     pred = clf.predict([Test_data[i]])
     print("{} {}".format(Test_label[i],pred[0]))
     if Test_label[i] == pred[0]:
+        if Test_label[i] == 1:
+            cnt_one += 1
         cnt += 1
 
 print(cnt/len(Test_data))
