@@ -13,7 +13,7 @@ class HOG:
     nbin = 9
     h = 60
     w = 57
-    clf = joblib.load('./svm_model/upperbody.pkl')
+    # clf = joblib.load('./svm_model/upperbody.pkl')
     padding = 20
 
 
