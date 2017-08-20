@@ -10,6 +10,12 @@ from sklearn.externals import joblib
 with open('Train_data', 'rb') as fp:
     Data, Label = pickle.load(fp)
 
+with open('Test_data', 'rb') as fp:
+    Data2, Label2 = pickle.load(fp)
+
+Data += Data2
+Label += Label2
+
 shu = np.random.permutation(len(Data))
 
 shu_data = []
