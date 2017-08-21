@@ -1,11 +1,8 @@
 import numpy as np
 import cv2
-from HOG import HOG
 import os
 import glob
 import pickle
-from sklearn import svm
-from sklearn.externals import joblib
 
 with open('Train_data', 'rb') as fp:
     Data, Label = pickle.load(fp)
@@ -28,25 +25,27 @@ for i in range(len(shu)):
     shu_data.append(Data[shu[i]])
     shu_label.append(Label[shu[i]])
 
+shu_data = np.array(shu_data, np.float32)
+shu_label = np.array(shu_label, np.int32)
 
 Train_data, Test_data = shu_data[:num], shu_data[num:]
 Train_label, Test_label = shu_label[:num], shu_label[num:]
 
-clf = svm.SVC()
+svm = cv2.ml.SVM_create()
 
-clf.fit(Train_data, Train_label)
+svm.trainAuto(Train_data, cv2.ml.ROW_SAMPLE, Train_label)
+svm.save('./svm_model/upperbody.dat')
+
+svm = cv2.ml.SVM_load('./svm_model/upperbody.dat')
 
 cnt = 0
-cnt_one = 0;
+
 
 for i in range(len(Test_data)):
-    pred = clf.predict([Test_data[i]])
-    print("{} {}".format(Test_label[i],pred[0]))
-    if Test_label[i] == pred[0]:
-        if Test_label[i] == 1:
-            cnt_one += 1
+    data = np.array([Test_data[i]], np.float32)
+    pred = svm.predict(data)
+    _, pred1 = pred
+    if pred1[0][0] == Test_label[i]:
         cnt += 1
-
-print(cnt/len(Test_data))
-
-joblib.dump(clf, './svm_model/upperbody.pkl') 
+    else:
+        print(Test_label[i])
