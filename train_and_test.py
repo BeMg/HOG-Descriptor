@@ -32,11 +32,13 @@ Train_data, Test_data = shu_data[:num], shu_data[num:]
 Train_label, Test_label = shu_label[:num], shu_label[num:]
 
 svm = cv2.ml.SVM_create()
+svm.setType(cv2.ml.SVM_C_SVC)
+svm.setKernel(cv2.ml.SVM_LINEAR)
 
-svm.trainAuto(Train_data, cv2.ml.ROW_SAMPLE, Train_label)
-svm.save('./svm_model/upperbody.dat')
+svm.train(Train_data, cv2.ml.ROW_SAMPLE, Train_label)
+svm.save('./svm_model/upperbody2.dat')
 
-svm = cv2.ml.SVM_load('./svm_model/upperbody.dat')
+svm = cv2.ml.SVM_load('./svm_model/upperbody2.dat')
 
 cnt = 0
 
