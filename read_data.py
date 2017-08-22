@@ -7,7 +7,7 @@ from sklearn import svm
 from sklearn.externals import joblib
 
 
-hog = cv2.HOGDescriptor((56, 64), (16, 16), (8,8), (8,8), 9)
+hog = cv2.HOGDescriptor((100, 100), (16, 16), (8,8), (8,8), 9)
 curr_path = os.getcwd()
 
 pos_dir_path = curr_path+'/data/INRIAPerson/train_64x128_H96/pos'
@@ -17,20 +17,20 @@ pos_img_path = glob.glob(pos_dir_path+'/*.png')
 neg_img_path = glob.glob(neg_dir_path+'/*.png')
 neg_img_path += glob.glob(neg_dir_path+'/*.jpg')
 
-img = cv2.imread(pos_img_path[1], 2)
-train_data = []
-train_label = []
+# img = cv2.imread(pos_img_path[1], 2)
+# train_data = []
+# train_label = []
 
-for i in range(len(pos_img_path)):
-    img = cv2.imread(pos_img_path[i], 2)
-    img2 = img[20:84, 20:76]
-    vec = hog.compute(img2)
-    train_data.append(vec.flatten())
-    train_label.append(1)
-    print("{}: {}".format(i, len(vec)))
+# for i in range(len(pos_img_path)):
+#     img = cv2.imread(pos_img_path[i], 2)
+#     img2 = img[20:84, 20:76]
+#     vec = hog.compute(img2)
+#     train_data.append(vec.flatten())
+#     train_label.append(1)
+#     print("{}: {}".format(i, len(vec)))
 
-with open('Train_data', 'wb') as fp:
-    pickle.dump((train_data, train_label), fp)
+# with open('Train_data', 'wb') as fp:
+#     pickle.dump((train_data, train_label), fp)
 
 train_data = []
 train_label = []
@@ -41,12 +41,12 @@ Test_label = []
 for i in range(len(neg_img_path)):
     img = cv2.imread(neg_img_path[i], 2)
     h2, w2 = img.shape
-    h2, w2 = int(h2/64), int(w2/56)
+    h2, w2 = int(h2/100), int(w2/100)
     for j in range(h2):
         for k in range(w2):
-            x = j*64
-            y = k*56
-            img2 = img[x:x+64, y:y+56]
+            x = j*100
+            y = k*100
+            img2 = img[x:x+100, y:y+100]
             vec = hog.compute(img2)
             Test_data.append(vec.flatten())
             Test_label.append(0)
