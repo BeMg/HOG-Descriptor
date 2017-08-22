@@ -4,7 +4,7 @@ import os
 import glob
 import pickle
 
-with open('Train_data', 'rb') as fp:
+with open('pos_data', 'rb') as fp:
     Data, Label = pickle.load(fp)
 
 with open('Test_data', 'rb') as fp:
@@ -35,10 +35,10 @@ svm = cv2.ml.SVM_create()
 svm.setType(cv2.ml.SVM_C_SVC)
 svm.setKernel(cv2.ml.SVM_LINEAR)
 
-svm.trainAuto(Train_data, cv2.ml.ROW_SAMPLE, Train_label)
-svm.save('./svm_model/upperbody64x56-2.dat')
+svm.train(Train_data, cv2.ml.ROW_SAMPLE, Train_label)
+svm.save('./svm_model/face80x80.dat')
 
-svm = cv2.ml.SVM_load('./svm_model/upperbody64x56-2.dat')
+svm = cv2.ml.SVM_load('./svm_model/face80x80.dat')
 
 cnt = 0
 
