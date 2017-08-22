@@ -1,0 +1,26 @@
+--2017-08-22 18:21:06--  ftp://ftp.inrialpes.fr/pub/lear/douze/data/INRIAPerson.tar
+           => ‘INRIAPerson.tar’
+Resolving ftp.inrialpes.fr (ftp.inrialpes.fr)... 194.199.18.121
+Connecting to ftp.inrialpes.fr (ftp.inrialpes.fr)|194.199.18.121|:21... connected.
+Logging in as anonymous ... Logged in!
+==> SYST ... done.    ==> PWD ... done.
+==> TYPE I ... done.  ==> CWD (1) /pub/lear/douze/data ... done.
+==> SIZE INRIAPerson.tar ... 1016094720
+==> PASV ... done.    ==> RETR INRIAPerson.tar ... done.
+Length: 1016094720 (969M) (unauthoritative)
+
+
+
+2017-08-22 19:05:23 (374 KB/s) - Control connection closed.
+Retrying.
+
+--2017-08-22 19:20:24--  ftp://ftp.inrialpes.fr/pub/lear/douze/data/INRIAPerson.tar
+  (try: 2) => ‘INRIAPerson.tar’
+Connecting to ftp.inrialpes.fr (ftp.inrialpes.fr)|194.199.18.121|:21... connected.
+Logging in as anonymous ... Logged in!
+==> SYST ... done.    ==> PWD ... done.
+==> TYPE I ... done.  ==> CWD (1) /pub/lear/douze/data ... done.
+==> SIZE INRIAPerson.tar ... 1016094720
+File has already been retrieved.
+2017-08-22 19:20:26 (0.00 B/s) - ‘INRIAPerson.tar’ saved [1016094720]
+
