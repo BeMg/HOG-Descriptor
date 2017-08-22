@@ -11,7 +11,7 @@ test_img_path = glob.glob(test_dir_path+'/*.png')
 
 hog = cv2.HOGDescriptor((56, 64), (16, 16), (8,8), (8,8), 9)
 # hog = cv2.HOGDescriptor()
-svm = cv2.ml.SVM_load('./svm_model/upperbody.dat')
+svm = cv2.ml.SVM_load('./svm_model/upperbody64x56.dat')
 
 supvec = svm.getSupportVectors()
 
