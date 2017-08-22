@@ -9,9 +9,9 @@ path = os.getcwd()
 test_dir_path = path+'/data/INRIAPerson/train_64x128_H96/pos'
 test_img_path = glob.glob(test_dir_path+'/*.png')
 
-hog = cv2.HOGDescriptor((64, 64), (16, 16), (8,8), (8,8), 9)
+hog = cv2.HOGDescriptor((56, 64), (16, 16), (8,8), (8,8), 9)
 # hog = cv2.HOGDescriptor()
-svm = cv2.ml.SVM_load('./svm_model/upperbody2.dat')
+svm = cv2.ml.SVM_load('./svm_model/upperbody.dat')
 
 supvec = svm.getSupportVectors()
 
@@ -29,18 +29,9 @@ for i in range(len(test_img_path)):
     ori = cv2.imread(test_img_path[i])
     print(img.shape)
 
-    print('Start Detect')
-
-
     rects = hog.detectMultiScale(img)
-    rects = rects[0]
 
-    rect = [i for i in rects if len(i) == 4]
-    
-    # for i in range(len(rect)):
-    #     rect[i][0] += 15
-    #     rect[i][2] += 15
-
+    rect = [i for i in rects[0] if len(i) == 4]
 
     print(rect)
     draw(ori, rect, (0, 255, 0))

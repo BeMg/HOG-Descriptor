@@ -35,10 +35,10 @@ svm = cv2.ml.SVM_create()
 svm.setType(cv2.ml.SVM_C_SVC)
 svm.setKernel(cv2.ml.SVM_LINEAR)
 
-svm.train(Train_data, cv2.ml.ROW_SAMPLE, Train_label)
-svm.save('./svm_model/upperbody2.dat')
+svm.trainAuto(Train_data, cv2.ml.ROW_SAMPLE, Train_label)
+svm.save('./svm_model/upperbody64x56-2.dat')
 
-svm = cv2.ml.SVM_load('./svm_model/upperbody2.dat')
+svm = cv2.ml.SVM_load('./svm_model/upperbody64x56-2.dat')
 
 cnt = 0
 
