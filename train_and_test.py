@@ -36,9 +36,9 @@ svm = cv2.ml.SVM_create()
 # svm.setKernel(cv2.ml.SVM_LINEAR)
 
 svm.trainAuto(Train_data, cv2.ml.ROW_SAMPLE, Train_label)
-svm.save('./svm_model/face80x80.dat')
+svm.save('./svm_model/face64x64.dat')
 
-svm = cv2.ml.SVM_load('./svm_model/face80x80.dat')
+svm = cv2.ml.SVM_load('./svm_model/face64x64.dat')
 
 cnt = 0
 
