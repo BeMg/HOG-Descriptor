@@ -38,14 +38,16 @@ train_label = []
 Test_data = []
 Test_label = []
 
+padding = 10
+
 for i in range(len(neg_img_path)):
     img = cv2.imread(neg_img_path[i], 2)
     h2, w2 = img.shape
-    h2, w2 = int(h2/64), int(w2/64)
+    h2, w2 = int((h2-64)/10), int((w2-64)/10)
     for j in range(h2):
         for k in range(w2):
-            x = j*64
-            y = k*64
+            x = j*10
+            y = k*10
             img2 = img[x:x+64, y:y+64]
             vec = hog.compute(img2)
             Test_data.append(vec.flatten())
