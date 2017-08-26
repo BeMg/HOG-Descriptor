@@ -17,6 +17,10 @@ def draw(img, rects, color):
     for x1, y1, x2, y2 in rects:
         cv2.rectangle(img, (x1, y1), (x2, y2), color, 2)
 
+def draw2(img, rects, color):
+    for x1, y1, x2, y2 in rects:
+        cv2.rectangle(img, (x1, y1), (x1+x2, y1+y2), color, 2)
+
 
 def face_cascade():
     cascade_xml = []

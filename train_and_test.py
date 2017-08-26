@@ -36,9 +36,9 @@ svm.setType(cv2.ml.SVM_C_SVC)
 svm.setKernel(cv2.ml.SVM_LINEAR)
 
 svm.train(Train_data, cv2.ml.ROW_SAMPLE, Train_label)
-svm.save('./svm_model/face40x40.dat')
+svm.save('./svm_model/upperbody64x64.dat')
 
-svm = cv2.ml.SVM_load('./svm_model/face40x40.dat')
+svm = cv2.ml.SVM_load('./svm_model/upperbody64x64.dat')
 
 cnt = 0
 
