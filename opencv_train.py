@@ -40,7 +40,7 @@ joblib.dump(clf, 'face40x40.pkl')
 cnt = 0
 
 for i in range(len(Test_data)):
-    pred = clf.predict([Test_data[i])
+    pred = clf.predict([Test_data[i]])
     if pred[0] == Test_label[i]:
         cnt += 1
     else:
