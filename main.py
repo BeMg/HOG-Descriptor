@@ -4,7 +4,7 @@ import os
 import glob
 from utils import draw2
 
-W = 40
+W = 64
 H = 64
 
 path = os.getcwd()
