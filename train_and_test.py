@@ -22,6 +22,7 @@ shu_data = []
 shu_label = []
 
 num = int(len(Data)/8)*7
+Test_num = num/7
 
 
 for i in range(len(shu)):
@@ -37,6 +38,7 @@ Train_label, Test_label = shu_label[:num], shu_label[num:]
 svm = cv2.ml.SVM_create()
 svm.setType(cv2.ml.SVM_C_SVC)
 svm.setKernel(cv2.ml.SVM_LINEAR)
+svm.setC(100)
 
 svm.train(Train_data, cv2.ml.ROW_SAMPLE, Train_label)
 svm.save('./svm_model/upperbody{}x{}.dat'.format(H,W))
@@ -54,3 +56,6 @@ for i in range(len(Test_data)):
         cnt += 1
     else:
         print(Test_label[i])
+
+
+print(1-(cnt/Test_num))
