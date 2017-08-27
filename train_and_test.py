@@ -4,6 +4,9 @@ import os
 import glob
 import pickle
 
+W = 40
+H = 64
+
 with open('Train_data', 'rb') as fp:
     Data, Label = pickle.load(fp)
 
@@ -36,9 +39,9 @@ svm.setType(cv2.ml.SVM_C_SVC)
 svm.setKernel(cv2.ml.SVM_LINEAR)
 
 svm.train(Train_data, cv2.ml.ROW_SAMPLE, Train_label)
-svm.save('./svm_model/upperbody64x64.dat')
+svm.save('./svm_model/upperbody{}x{}.dat'.format(H,W))
 
-svm = cv2.ml.SVM_load('./svm_model/upperbody64x64.dat')
+svm = cv2.ml.SVM_load('./svm_model/upperbody{}x{}.dat'.format(H,W))
 
 cnt = 0
 

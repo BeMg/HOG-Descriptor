@@ -6,7 +6,7 @@ import pickle
 from sklearn import svm
 from sklearn.externals import joblib
 
-W = 64
+W = 40
 H = 64
 
 hog = cv2.HOGDescriptor((W, H), (16, 16), (8,8), (8,8), 9)
@@ -25,9 +25,7 @@ train_label = []
 
 for i in range(len(pos_img_path)):
     img = cv2.imread(pos_img_path[i], 2)
-    img2 = img[20:20+W, 20:20+H]
-    # cv2.imshow('a', img2)
-    # cv2.waitKey()
+    img2 = img[30:30+H, 30:30+W]
     vec = hog.compute(img2)
     train_data.append(vec.flatten())
     train_label.append(1)
@@ -42,16 +40,16 @@ train_label = []
 Test_data = []
 Test_label = []
 
-padding = 10
+padding = 40
 
 for i in range(len(neg_img_path)):
     img = cv2.imread(neg_img_path[i], 2)
     h2, w2 = img.shape
-    h2, w2 = int((h2-H)/10), int((w2-W)/10)
+    h2, w2 = int((h2-H)/padding), int((w2-W)/padding)
     for j in range(h2):
         for k in range(w2):
-            x = j*10
-            y = k*10
+            x = j*padding
+            y = k*padding
             img2 = img[x:x+H, y:y+W]
             vec = hog.compute(img2)
             Test_data.append(vec.flatten())
