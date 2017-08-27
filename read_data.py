@@ -26,6 +26,8 @@ train_label = []
 for i in range(len(pos_img_path)):
     img = cv2.imread(pos_img_path[i], 2)
     img2 = img[30:30+H, 30:30+W]
+    cv2.imshow('a', img2)
+    cv2.waitKey()
     vec = hog.compute(img2)
     train_data.append(vec.flatten())
     train_label.append(1)
@@ -40,7 +42,7 @@ train_label = []
 Test_data = []
 Test_label = []
 
-padding = 40
+padding = 10
 
 for i in range(len(neg_img_path)):
     img = cv2.imread(neg_img_path[i], 2)
