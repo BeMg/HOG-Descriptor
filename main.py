@@ -34,11 +34,18 @@ for i in range(20):
 
     rects = hog.detectMultiScale(img)
     
-    print(rects)
+    # print(rects)
 
-    rect = [i for i in rects[0] if len(i) == 4]
+    rect, weight = rects
 
     print(rect)
+    print(weight)
+
+    # rect = [rect[i] for i in range(len(rects)) if weight[i] > 0.3]
+
+    # rect = [i for i in rects[0] if len(i) == 4]
+
+    # print(rect)
     draw2(ori, rect, (0, 255, 0))
 
     cv2.imshow('a', ori)

@@ -4,10 +4,10 @@ import os
 import glob
 import pickle
 
-W = 40
+W = 64
 H = 64
 
-with open('Train_data', 'rb') as fp:
+with open('pos_data', 'rb') as fp:
     Data, Label = pickle.load(fp)
 
 with open('Test_data', 'rb') as fp:

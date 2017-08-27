@@ -6,7 +6,7 @@ import pickle
 from sklearn import svm
 from sklearn.externals import joblib
 
-W = 40
+W = 64
 H = 64
 
 hog = cv2.HOGDescriptor((W, H), (16, 16), (8,8), (8,8), 9)
