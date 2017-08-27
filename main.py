@@ -4,15 +4,18 @@ import os
 import glob
 from utils import draw2
 
+W = 40
+H = 64
+
 path = os.getcwd()
 
 # test_dir_path = path+'/data/INRIAPerson/train_64x128_H96/pos'
 test_dir_path = path+'/data/INRIAPerson/Train/pos'
 test_img_path = glob.glob(test_dir_path+'/*.png')
 
-hog = cv2.HOGDescriptor((56, 64), (16, 16), (8,8), (8,8), 9)
+hog = cv2.HOGDescriptor((W, H), (16, 16), (8,8), (8,8), 9)
 # hog = cv2.HOGDescriptor()
-svm = cv2.ml.SVM_load('./svm_model/upperbody64x56.dat')
+svm = cv2.ml.SVM_load('./svm_model/upperbody{}x{}.dat'.format(H,W))
 
 supvec = svm.getSupportVectors()
 

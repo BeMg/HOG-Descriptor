@@ -42,7 +42,7 @@ train_label = []
 Test_data = []
 Test_label = []
 
-padding = 10
+padding = 5
 
 for i in range(len(neg_img_path)):
     img = cv2.imread(neg_img_path[i], 2)
