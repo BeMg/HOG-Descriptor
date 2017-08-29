@@ -5,7 +5,7 @@ import glob
 from utils import draw2, GetHighWeightRect
 
 W = 40
-H = 64
+H = 40
 
 path = os.getcwd()
 
