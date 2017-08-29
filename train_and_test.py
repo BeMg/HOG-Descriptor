@@ -41,7 +41,7 @@ Train_label, Test_label = shu_label[:num], shu_label[num:]
 svm = cv2.ml.SVM_create()
 svm.setType(cv2.ml.SVM_C_SVC)
 svm.setKernel(cv2.ml.SVM_LINEAR)
-svm.setC(10)
+svm.setC(1)
 
 svm.train(Train_data, cv2.ml.ROW_SAMPLE, Train_label)
 svm.save('./svm_model/upperbody{}x{}.dat'.format(H,W))
