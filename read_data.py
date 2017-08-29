@@ -6,8 +6,8 @@ import pickle
 from sklearn import svm
 from sklearn.externals import joblib
 
-W = 64
-H = 64
+W = 40
+H = 40
 
 hog = cv2.HOGDescriptor((W, H), (16, 16), (8,8), (8,8), 9)
 curr_path = os.getcwd()
@@ -18,13 +18,15 @@ neg_dir_path = curr_path+'/data/INRIAPerson/train_64x128_H96/neg'
 pos_img_path = glob.glob(pos_dir_path+'/*.png')
 neg_img_path = glob.glob(neg_dir_path+'/*.png')
 neg_img_path += glob.glob(neg_dir_path+'/*.jpg')
-
 img = cv2.imread(pos_img_path[1], 2)
+
 train_data = []
 train_label = []
 
 for i in range(len(pos_img_path)):
     img = cv2.imread(pos_img_path[i], 2)
+    # cv2.imshow('a', img)
+    # cv2.waitKey()
     img2 = img[30:30+H, 30:30+W]
     # cv2.imshow('a', img2)
     # cv2.waitKey()

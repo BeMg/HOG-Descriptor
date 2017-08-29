@@ -2,9 +2,9 @@ import numpy as np
 import cv2
 import os
 import glob
-from utils import draw2
+from utils import draw2, GetHighWeightRect
 
-W = 64
+W = 40
 H = 64
 
 path = os.getcwd()
@@ -40,6 +40,8 @@ for i in range(20):
 
     print(rect)
     print(weight)
+
+    rect = GetHighWeightRect(rect, weight)
 
     # rect = [rect[i] for i in range(len(rects)) if weight[i] > 0.3]
 

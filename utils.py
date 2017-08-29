@@ -39,3 +39,20 @@ def DetectFace(img):
     cascades = face_cascade()
     rects = detect(img, cascades[0])
     return rects
+
+def GetHighWeightRect(rects, weights, num=2):
+    select = []
+    rects = list(rects)
+    weights = list(weights)
+
+    print(rects)
+    print(weights)
+
+    num = min(len(weights), num)
+
+    for i in range(num):
+        index = weights.index(max(weights))
+        weights.remove(max(weights))
+        select.append(rects[index])
+
+    return select
