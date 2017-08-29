@@ -4,8 +4,8 @@ import os
 import glob
 import pickle
 
-W = 40
-H = 40
+W = 64
+H = 64
 
 with open('Train_data', 'rb') as fp:
     Data, Label = pickle.load(fp)
@@ -62,4 +62,4 @@ for i in range(len(Test_data)):
 
 print(cnt)
 print(Test_num)
-print(1-(cnt/Test_num))
+print((cnt/Test_num))
