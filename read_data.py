@@ -6,7 +6,7 @@ import pickle
 from sklearn import svm
 from sklearn.externals import joblib
 
-W = 64
+W = 40
 H = 64
 
 hog = cv2.HOGDescriptor((W, H), (16, 16), (8,8), (8,8), 9)
@@ -44,7 +44,7 @@ train_label = []
 Test_data = []
 Test_label = []
 
-padding = 5
+padding = 8
 
 for i in range(len(neg_img_path)):
     img = cv2.imread(neg_img_path[i], 2)
