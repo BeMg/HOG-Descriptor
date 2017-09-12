@@ -44,14 +44,18 @@ train_label = []
 Test_data = []
 Test_label = []
 
-padding = 20
+padding = 30
 
 for i in range(len(neg_img_path)):
     img = cv2.imread(neg_img_path[i], 2)
     h2, w2 = img.shape
     h2, w2 = int((h2-H)/padding), int((w2-W)/padding)
     for j in range(h2):
+        if j%2==0:
+            continue
         for k in range(w2):
+            if k%2==0:
+                continue
             x = j*padding
             y = k*padding
             img2 = img[x:x+H, y:y+W]
