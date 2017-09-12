@@ -13,7 +13,7 @@ hog = cv2.HOGDescriptor((W, H), (16, 16), (8,8), (8,8), 9)
 curr_path = os.getcwd()
 
 pos_dir_path = curr_path+'/data/INRIAPerson/train_64x128_H96/pos'
-neg_dir_path = curr_path+'/data/INRIAPerson/train_64x128_H96/neg'
+neg_dir_path = curr_path+'/data/indoor'
 
 pos_img_path = glob.glob(pos_dir_path+'/*.png')
 neg_img_path = glob.glob(neg_dir_path+'/*.png')
@@ -44,7 +44,7 @@ train_label = []
 Test_data = []
 Test_label = []
 
-padding = 8
+padding = 20
 
 for i in range(len(neg_img_path)):
     img = cv2.imread(neg_img_path[i], 2)
