@@ -7,10 +7,10 @@ import pickle
 W = 40
 H = 64
 
-with open('pos_data', 'rb') as fp:
+with open('POS_data', 'rb') as fp:
     Data, Label = pickle.load(fp)
 
-with open('Test_data', 'rb') as fp:
+with open('NEG_data', 'rb') as fp:
     Data2, Label2 = pickle.load(fp)
 
 print(len(Data))
