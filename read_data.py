@@ -48,6 +48,8 @@ padding = 30
 
 for i in range(len(neg_img_path)):
     img = cv2.imread(neg_img_path[i], 2)
+    if img==None:
+        continue
     h2, w2 = img.shape
     h2, w2 = int((h2-H)/padding), int((w2-W)/padding)
     for j in range(h2):
