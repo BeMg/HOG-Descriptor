@@ -38,6 +38,8 @@ shu_label = np.array(shu_label, np.int32)
 Train_data, Test_data = shu_data[:num], shu_data[num:]
 Train_label, Test_label = shu_label[:num], shu_label[num:]
 
+print("Train Start")
+
 svm = cv2.ml.SVM_create()
 svm.setType(cv2.ml.SVM_C_SVC)
 svm.setKernel(cv2.ml.SVM_LINEAR)
