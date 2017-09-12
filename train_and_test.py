@@ -4,7 +4,7 @@ import os
 import glob
 import pickle
 
-W = 64
+W = 40
 H = 64
 
 with open('pos_data', 'rb') as fp:

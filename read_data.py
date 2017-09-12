@@ -35,7 +35,7 @@ for i in range(len(pos_img_path)):
     train_label.append(1)
     print("{}: {}".format(i, len(vec)))
 
-with open('Train_data', 'wb') as fp:
+with open('POS_data', 'wb') as fp:
     pickle.dump((train_data, train_label), fp)
 
 train_data = []
@@ -66,5 +66,5 @@ for i in range(len(neg_img_path)):
             Test_label.append(0)
             print("{}.{}.{}: {}".format(i, j, k, len(vec)))
 
-with open('Test_data', 'wb') as fp:
+with open('NEG_data', 'wb') as fp:
     pickle.dump((Test_data, Test_label), fp)
