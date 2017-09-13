@@ -39,7 +39,7 @@ print("Train Start")
 clf = svm.SVC(kernel='linear')
 clf.fit(Train_data, Train_label)
 
-with open('upperbody{}x{}'.format(H, W), 'wb') as fp:
+with open('upperbody{}x{}.dat'.format(H, W), 'wb') as fp:
     pickle.dump(clf, fp)
 
 test_result = clf.score(Test_data, Test_label)

@@ -15,7 +15,8 @@ def detect(img, cascade):
 
 def draw(img, rects, color):
     for x1, y1, x2, y2 in rects:
-        cv2.rectangle(img, (x1, y1), (x2, y2), color, 2)
+        cv2.rectangle(img, (y1, x1), (y2, x2), color, 2)
+        # cv2.rectangle(img, (x1, y1), (x2, y2), color, 2)
 
 def draw2(img, rects, color):
     for x1, y1, x2, y2 in rects:
@@ -75,12 +76,14 @@ def DetectMymethod(img, H, W, clf):
     rects = []
     hog = cv2.HOGDescriptor((W, H), (16, 16), (8,8), (8,8), 9)
 
-    for i in range(5):
+    
+
+    for i in range(3):
         
-        new_H = int(H * (1+0.25*i))
-        new_W = int(W * (1+0.25*i))
+        new_H = int(H * (2+0.5*i))
+        new_W = int(W * (2+0.5*i))
         
-        sw = slice_window(img, new_H, new_W, 30)
+        sw = slice_window(img, new_H, new_W, 25)
         all_vec = []
 
         for (x1, y1, x2, y2) in sw:
@@ -92,8 +95,8 @@ def DetectMymethod(img, H, W, clf):
 
         pred = clf.predict(all_vec)
 
-        for i, val in enumerate(pred):
+        for j, val in enumerate(pred):
             if val == 1:
-                rects.append(sw[i])
+                rects.append(sw[j])
     
     return rects
