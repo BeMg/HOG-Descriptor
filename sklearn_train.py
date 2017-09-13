@@ -1,6 +1,7 @@
 from sklearn import svm
 import pickle
 import glob
+import numpy as np
 
 W = 40
 H = 64
