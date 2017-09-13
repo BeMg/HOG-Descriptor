@@ -1,26 +1,20 @@
-import numpy as np
-from sklearn import svm
-from sklearn.externals import joblib
-import pickle
+import cv2
+from slice_window import slice_window
+import os
+import glob
 
-print("Load Train_data")
-with open('Train_data', 'rb') as fp:
-    train_data, train_label = pickle.load(fp)
+W = 40
+H = 64
 
-print("Load SVM model")
-clf = joblib.load('./svm_model/upperbody.pkl')
+path = os.getcwd()
+test_dir_path = path+'/data/INRIAPerson/Train/pos'
+test_img_path = glob.glob(test_dir_path+'/*.png')
 
-cnt = 0
+print(test_img_path[10])
+img = cv2.imread(test_img_path[10], 2)
 
-print("Start Test")
 
-print(len(train_data))
-print(len(train_data[1]))
+for (x1, y1, x2, y2) in slice_window(img, H, W, 10):
+    img2 = img[x1:x2, y1:y2]
+    print((x1, y1, x2, y2))
 
-for i in range(len(train_data)):
-    pred = clf.predict([train_data[i]])
-    print("{}:{}, {}".format(i,pred[0], train_label[i]))
-    if pred[0] == train_label[i]:
-        cnt += 1
-
-print(cnt/len(train_data))
