@@ -1,7 +1,8 @@
 import cv2
-from slice_window import slice_window
+from utils import DetectMymethod, draw
 import os
 import glob
+import pickle
 
 W = 40
 H = 64
@@ -11,10 +12,15 @@ test_dir_path = path+'/data/INRIAPerson/Train/pos'
 test_img_path = glob.glob(test_dir_path+'/*.png')
 
 print(test_img_path[10])
+ori = cv2.imread(test_img_path[10])
 img = cv2.imread(test_img_path[10], 2)
 
+with open('./svm_model/upperbody64x40', 'rb') as fp:
+    clf = pickle.load(fp)
 
-for (x1, y1, x2, y2) in slice_window(img, H, W, 10):
-    img2 = img[x1:x2, y1:y2]
-    print((x1, y1, x2, y2))
+rects = DetectMymethod(img, H, W, clf)
 
+draw(ori, rects, (0, 255, 0))
+
+cv2.imshow('a', ori)
+cv2.waitKey()

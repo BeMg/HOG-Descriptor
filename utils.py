@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-
+from sklearn import svm
 
 
 def detect(img, cascade):
@@ -56,3 +56,31 @@ def GetHighWeightRect(rects, weights, num=2):
         select.append(rects[index])
 
     return select
+
+def slice_window(img, H, W, padding):
+    h, w = img.shape
+    heigh = int((h-H)/padding)
+    weigh = int((w-W)/padding)
+    result = []
+    for i in range(heigh):
+        for j in range(weigh):
+            x = i*padding
+            y = j*padding
+            result.append((x, y, x+H, y+W))
+    
+    return result
+
+def DetectMymethod(img, H, W, clf):
+    
+    rects = []
+    hog = cv2.HOGDescriptor((W, H), (16, 16), (8,8), (8,8), 9)
+
+    for (x1, y1, x2, y2) in slice_window(img, H, W, 30):
+        img2 = img[x1:x2, y1:y2]
+        vec = hog.compute(img2)
+        pred = clf.predict([vec.flatten()])
+        
+        if(pred[0] == 1):
+            rects.append((x1, y1, x2, y2))
+
+    return rects

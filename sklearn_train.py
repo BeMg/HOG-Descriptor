@@ -36,7 +36,7 @@ Train_label, Test_label = shu_label[:num], shu_label[num:]
 
 print("Train Start")
 
-clf = svm.SVC()
+clf = svm.SVC(kernel='linear')
 clf.fit(Train_data, Train_label)
 
 with open('upperbody{}x{}'.format(H, W), 'wb') as fp:

@@ -9,7 +9,7 @@ H = 64
 
 path = os.getcwd()
 
-test_dir_path = path+'/data/INRIAPerson/train_64x128_H96/pos'
+# test_dir_path = path+'/data/INRIAPerson/train_64x128_H96/pos'
 test_dir_path = path+'/data/INRIAPerson/Train/pos'
 test_img_path = glob.glob(test_dir_path+'/*.png')
 
