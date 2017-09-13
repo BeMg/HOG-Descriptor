@@ -75,12 +75,25 @@ def DetectMymethod(img, H, W, clf):
     rects = []
     hog = cv2.HOGDescriptor((W, H), (16, 16), (8,8), (8,8), 9)
 
-    for (x1, y1, x2, y2) in slice_window(img, H, W, 30):
-        img2 = img[x1:x2, y1:y2]
-        vec = hog.compute(img2)
-        pred = clf.predict([vec.flatten()])
+    for i in range(5):
         
-        if(pred[0] == 1):
-            rects.append((x1, y1, x2, y2))
+        new_H = int(H * (1+0.25*i))
+        new_W = int(W * (1+0.25*i))
+        
+        sw = slice_window(img, new_H, new_W, 30)
+        all_vec = []
 
+        for (x1, y1, x2, y2) in sw:
+            img2 = img[x1:x2, y1:y2]
+            img2 = cv2.resize(img2, (W, H))
+            vec = hog.compute(img2)
+            vec = vec.flatten()
+            all_vec.append(vec)
+
+        pred = clf.predict(all_vec)
+
+        for i, val in enumerate(pred):
+            if val == 1:
+                rects.append(sw[i])
+    
     return rects

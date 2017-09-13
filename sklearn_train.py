@@ -3,7 +3,7 @@ import pickle
 import glob
 import numpy as np
 
-W = 40
+W = 64
 H = 64
 
 with open('POS_data', 'rb') as fp:

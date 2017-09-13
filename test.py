@@ -11,16 +11,19 @@ path = os.getcwd()
 test_dir_path = path+'/data/INRIAPerson/Train/pos'
 test_img_path = glob.glob(test_dir_path+'/*.png')
 
-print(test_img_path[10])
-ori = cv2.imread(test_img_path[10])
-img = cv2.imread(test_img_path[10], 2)
+for i in range(20):
+    print(test_img_path[10+i])
+    ori = cv2.imread(test_img_path[10+i])
+    img = cv2.imread(test_img_path[10+i], 2)
 
-with open('./svm_model/upperbody64x40', 'rb') as fp:
-    clf = pickle.load(fp)
+    with open('./svm_model/upperbody64x40', 'rb') as fp:
+        clf = pickle.load(fp)
 
-rects = DetectMymethod(img, H, W, clf)
+    rects = DetectMymethod(img, H, W, clf)
 
-draw(ori, rects, (0, 255, 0))
+    print(rects)
 
-cv2.imshow('a', ori)
-cv2.waitKey()
+    draw(ori, rects, (0, 255, 0))
+
+    cv2.imshow('a', ori)
+    cv2.waitKey()
