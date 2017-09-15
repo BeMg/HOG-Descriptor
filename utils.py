@@ -100,3 +100,49 @@ def DetectMymethod(img, H, W, clf):
                 rects.append(sw[j])
     
     return rects
+
+
+def computeDelta(a, b, eps = 0.2):
+    (x11, y11, x12, y12) = a
+    (x21, y21, x22, y22) = b
+    return (min(x12-x11, x22-x21) + min(y12-y11, y22-y21))/2 * eps 
+
+def Checkoverlap(a, b):
+    delta = computeDelta(a, b)
+    for i in range(4):
+        if abs(a[i]-b[i]) > delta:
+            return False
+    return True
+
+def CheckBinA(a, b):
+    if b[0] > a[0] and b[1] > a[1] and b[2] < a[2] and b[3] < a[3]:
+        return True
+    return False
+
+
+def RectsGroup(rects, eps = 0.2):
+    
+    mp = [0] * len(rects)
+    
+    result = []
+
+    for i in range(len(rects)):
+        if mp[i] == -1:
+            continue
+
+        for j in range(i+1, len(rects)):
+            if CheckBinA(rects[i], rects[j]):
+                mp[i] = 1
+                mp[j] = -1
+            elif CheckBinA(rects[j], rects[i]):
+                mp[i] = -1
+                mp[j] = 1
+                break
+            elif Checkoverlap(rects[i], rects[j]):
+                mp[i] = 1
+                mp[j] = -1
+        
+        if mp[i] == 1:
+            result.append(rects[i])
+    
+    return result
