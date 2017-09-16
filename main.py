@@ -4,7 +4,7 @@ import os
 import glob
 from utils import draw2, GetHighWeightRect
 
-W = 64
+W = 40
 H = 64
 
 path = os.getcwd()
@@ -24,13 +24,17 @@ supvec = svm.getSupportVectors()
 rho, alpha, svidx = svm.getDecisionFunction(0)
 resultmat = -np.dot(alpha[0], supvec)
 resultmat = np.append(resultmat, rho)
-hog.setSVMDetector(resultmat)
+supvec += [rho]
+supvec = np.negative(supvec)
+hog.setSVMDetector(supvec)
+
+
 
 for i in range(20):
 
-    img = cv2.imread(test_img_path[i], 2)
+    img = cv2.imread(test_img_path[i+143], 2)
 
-    ori = cv2.imread(test_img_path[i])
+    ori = cv2.imread(test_img_path[i+143])
     print(img.shape)
 
     rects = hog.detectMultiScale(img)

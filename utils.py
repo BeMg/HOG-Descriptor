@@ -76,14 +76,12 @@ def DetectMymethod(img, H, W, clf):
     rects = []
     hog = cv2.HOGDescriptor((W, H), (16, 16), (8,8), (8,8), 9)
 
-    
-
-    for i in range(3):
+    for i in range(5):
         
-        new_H = int(H * (2+0.5*i))
-        new_W = int(W * (2+0.5*i))
+        new_H = int(H * (3*(1.05**i)))
+        new_W = int(W * (3*(1.05**i)))
         
-        sw = slice_window(img, new_H, new_W, 25)
+        sw = slice_window(img, new_H, new_W, int(new_H/5))
         all_vec = []
 
         for (x1, y1, x2, y2) in sw:
@@ -101,6 +99,30 @@ def DetectMymethod(img, H, W, clf):
     
     return rects
 
+def DetectMymethod2(img, H, W, Scale, padding, clf):
+    rects = []
+    hog = cv2.HOGDescriptor((W, H), (16, 16), (8,8), (8,8), 9)
+
+    new_H = int(H*Scale)
+    new_W = int(W*Scale)
+
+    sw = slice_window(img, new_H, new_W, padding)
+    all_vec = []
+
+    for (x1, y1, x2, y2) in sw:
+        img2 = img[x1:x2, y1:y2]
+        img2 = cv2.resize(img2, (W, H))
+        vec = hog.compute(img2)
+        vec = vec.flatten()
+        all_vec.append(vec)
+
+    pred = clf.predict(all_vec)
+
+    for j, val in enumerate(pred):
+            if val == 1:
+                rects.append(sw[j])
+
+    return rects
 
 def computeDelta(a, b, eps = 0.2):
     (x11, y11, x12, y12) = a
@@ -120,7 +142,7 @@ def CheckBinA(a, b):
     return False
 
 
-def RectsGroup(rects, eps = 0.2):
+def RectsGroup(rects):
     
     mp = [0] * len(rects)
     

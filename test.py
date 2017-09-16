@@ -12,9 +12,9 @@ test_dir_path = path+'/data/INRIAPerson/Train/pos'
 test_img_path = glob.glob(test_dir_path+'/*.png')
 
 for i in range(20):
-    print(test_img_path[60+i])
-    ori = cv2.imread(test_img_path[60+i])
-    img = cv2.imread(test_img_path[60+i], 2)
+    print(test_img_path[100+i])
+    ori = cv2.imread(test_img_path[100+i])
+    img = cv2.imread(test_img_path[100+i], 2)
 
     with open('./svm_model/upperbody64x40', 'rb') as fp:
         clf = pickle.load(fp)
